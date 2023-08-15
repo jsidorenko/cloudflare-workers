@@ -1,0 +1,28 @@
+name = "nft-metadata"
+main = "src/worker.js"
+compatibility_date = "2023-08-07"
+
+account_id = "fa96702ae2ceafb063bed798becd040f"
+workers_dev = true
+
+# Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
+# Note: Use secrets to store sensitive data.
+# Docs: https://developers.cloudflare.com/workers/platform/environment-variables
+[vars]
+MAX_FILE_SIZE = 524288 # 1024 * 512
+FETCH_TIMEOUT = 5000 # ms
+REUPLOAD_AFTER = 86400 # 60 * 60 * 24 = 1 day
+
+# Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
+# Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
+[[kv_namespaces]]
+binding = "METADATA_DB"
+id = "703e941cf3f04fb3a2f9367932bcaeed"
+preview_id = "ccea72add34d4ba0a0feea0ffcd60566"
+
+# Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
+# Docs: https://developers.cloudflare.com/r2/api/workers/workers-api-usage/
+[[r2_buckets]]
+binding = "METADATA_BUCKET"
+bucket_name = "metadata"
+preview_bucket_name = "metadata-dev"
