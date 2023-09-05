@@ -15,6 +15,14 @@ export default {
 	fetch: (request, ...args) =>
 		apiRouter
 			.handle(request, ...args)
-			.then(json) // send as JSON
+			.then((response, options) => {
+				// enable cors
+				response.headers.set('Access-Control-Allow-Origin', '*');
+				response.headers.set('Access-Control-Allow-Methods', 'GET,HEAD,POST,OPTIONS');
+				response.headers.set('Access-Control-Max-Age', '86400');
+				// set json type
+				response.headers.set('Content-Type', 'application/json');
+				return json(response, options);
+			}) // send as JSON
 			.catch(error), // catch errors
 };
