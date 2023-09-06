@@ -107,7 +107,7 @@ router.get('/ipfs/:hash', async (req, { MAX_FILE_SIZE, FETCH_TIMEOUT, METADATA_B
 	// store in storage
 	context.waitUntil(METADATA_BUCKET.put(hash, dataAsString, storedFileMetadata));
 
-	return data;
+	return new Response(data);
 });
 
 // 404 for everything else
