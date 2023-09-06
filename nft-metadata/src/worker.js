@@ -16,6 +16,9 @@ export default {
 		apiRouter
 			.handle(request, ...args)
 			.then((response, options) => {
+				if (!response.headers) {
+					response.headers = new Headers();
+				}
 				// enable cors
 				response.headers.set('Access-Control-Allow-Origin', '*');
 				response.headers.set('Access-Control-Allow-Methods', 'GET,HEAD,POST,OPTIONS');
